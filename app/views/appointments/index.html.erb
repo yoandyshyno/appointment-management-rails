@@ -1,0 +1,46 @@
+<%- model_class = Appointment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:startdate) %></th>
+      <th><%= model_class.human_attribute_name(:enddate) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:notes) %></th>
+      <th><%= model_class.human_attribute_name(:typeapp) %></th>
+      <th><%= model_class.human_attribute_name(:visibility) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= link_to appointment.id, appointment_path(appointment) %></td>
+        <td><%= appointment.startdate.to_formatted_s(:db) %></td>
+        <td><%= appointment.enddate.to_formatted_s(:db) %></td>
+        <td><%= appointment.title %></td>
+        <td><%= appointment.notes %></td>
+        <td><%= appointment.typeapp %></td>
+        <td><% if appointment.visibility %>Public<% else %>Private<% end %></td>
+        <td><%= appointment.created_at.to_formatted_s(:short) %></td>
+        <td>
+          <% link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_appointment_path(appointment), :class => 'btn btn-mini' -%>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      appointment_path(appointment),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_appointment_path,
+            :class => 'btn btn-primary' %>

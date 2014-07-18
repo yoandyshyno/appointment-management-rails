@@ -1,0 +1,67 @@
+<%= form_for @appointment, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :startdate, :class => 'control-label' %>
+    <div class="datetimepicker input-append date">
+      <%= f.text_field :start_at_date, :class => 'dtp-custom' %>
+      <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :enddate, :class => 'control-label' %>
+    <div class="datetimepicker input-append date">
+      <%= f.text_field :end_at_date, :class => 'dtp-custom' %>
+      <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :notes, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :notes, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :typeapp, :class => 'control-label' %>
+    <div class="controls">
+      <%= select_tag 'appointment[typeapp]', options_for_select(@types), :class => 'text_field' %>
+  </div>
+  <div class="control-group">
+    <%= f.label :visibility, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :visibility, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label 'User Schedule', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select( :userschedule, User.where("users.id <> ?", @current_user.id),
+       :id, :username, { :include_blank => true}) %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                appointments_path, :class => 'btn' %>
+  </div>
+<% end %>
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datetimepicker({
+          todayHighlight: true,
+          format: 'yyyy-MM-dd hh:mm',
+          pickSeconds: false,
+        });
+    });
+</script>

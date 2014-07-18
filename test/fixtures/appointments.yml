@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  startdate: 2014-06-24 18:44:23
+  enddate: 2014-06-24 18:44:23
+  title: MyString
+  notes: MyText
+  typeapp: 1
+  visibility: false
+
+two:
+  startdate: 2014-06-24 18:44:23
+  enddate: 2014-06-24 18:44:23
+  title: MyString
+  notes: MyText
+  typeapp: 1
+  visibility: false
